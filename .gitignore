@@ -1,4 +1,5 @@
-static/uploads/*
+/backend/static/uploads/*.mp3
+/backend/static/uploads/*.mp4
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
