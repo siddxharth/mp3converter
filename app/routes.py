@@ -31,12 +31,12 @@ def upload_file():
         mp3_path = file_path.replace('.mp4', '.mp3')
         convert_mp4_to_mp3(file_path, mp3_path)
 
-        # Save files to GridFS
-        save_file(file_path, filename)
-        save_file(mp3_path, filename.replace('.mp4', '.mp3'))
+        user_id = request.form.get('user_id')
 
-        user_id = request.form.get('user_id')  # Get user ID from form data
-        save_conversion_record(user_id, filename, filename.replace('.mp4', '.mp3'), datetime.utcnow())
+        original_file_id = save_file(file_path, user_id)
+        converted_file_id = save_file(mp3_path, user_id)
+
+        save_conversion_record(user_id, original_file_id, converted_file_id, datetime.utcnow())
 
         return jsonify({'message': 'File converted successfully', 'mp3_file': mp3_path}), 200
 
@@ -44,17 +44,16 @@ def upload_file():
 
 @bp.route('/files/<user_id>', methods=['GET'])
 def list_files(user_id):
-    # Retrieve all conversion records for the given user_id
-    conversions = list(db.conversions.find({'user_id': user_id}, {'_id': 0, 'original_file': 1, 'converted_file': 1, 'conversion_date': 1}))
+    conversions = list(db.conversions.find({'user_id': user_id}, {'_id': 0, 'original_file_id': 1, 'converted_file_id': 1, 'conversion_date': 1}))
     return jsonify(conversions), 200
 
-@bp.route('/file/<filename>', methods=['GET'])
-def fetch_file(filename):
-    file_data = get_file(filename)
+@bp.route('/file/<file_id>', methods=['GET'])
+def fetch_file(file_id):
+    file_data = get_file(file_id)
     if file_data:
         return send_file(
             io.BytesIO(file_data),
-            download_name=filename,  # Use download_name instead of attachment_filename
+            download_name=f"{file_id}.mp4",
             as_attachment=True
         )
     return jsonify({'error': 'File not found'}), 404
