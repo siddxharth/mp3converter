@@ -1,4 +1,5 @@
-# MP3 Converter
+MP4 to MP3 Converter
+# MP4 to MP3 Converter
 
 This application, utilizing Flask for the backend and ReactJS for the frontend, enables users to convert MP4 video files into MP3 audio files. It offers an easy-to-use interface where users can upload their MP4 files and download the resulting MP3 files seamlessly.
 
