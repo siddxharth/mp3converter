@@ -1,4 +1,3 @@
-MP4 to MP3 Converter
 # MP3 Converter
 
 This application, utilizing Flask for the backend and ReactJS for the frontend, enables users to convert MP4 video files into MP3 audio files. It offers an easy-to-use interface where users can upload their MP4 files and download the resulting MP3 files seamlessly.
@@ -29,7 +28,7 @@ This application, utilizing Flask for the backend and ReactJS for the frontend, 
     ```
 3. Install the required Python packages:
     ```sh
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     ```
 4. Run the application in development mode
    ```sh
@@ -62,7 +61,7 @@ mp3converter/
 │   │   ├── routes.py
 │   │   ├── run.py
 │   │   └── static/
-│   ├── requirements.txt
+│   └── requirements.txt
 ├── frontend/
 │   ├── public/
 │   ├── src/
